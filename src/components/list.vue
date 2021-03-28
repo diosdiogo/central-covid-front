@@ -95,10 +95,11 @@ export default {
     methods:{
         deletar(id){
              axios
-            .delete('http://localhost:3000/pacientes/'+id,).then(response => (
+            .delete('http://localhost:3000/pacientes/'+id)
+            .then(
                  this.$emit("atualizarLista")
-              )
             )
+            
         }
     }
 }

@@ -49,17 +49,23 @@ export default {
     },
     data: function() {
         return {
-            listPatients: [{id : 1, nome:'Diogo Cesar',idade : 33, teste: 'Positivo'}]
+            listPatients: []
         }
     },
     methods: {
         atualizarLista(){
             axios
-         .get('http://localhost:3000/pacientes/').then(response => (
+         .get('http://localhost:3000/pacientes/',{
+            headers: {
+            // remove headers
+            }
+         }).then(response => (
                 this.listPatients = response.data.resultado
                 )
             )
+            alert('teste');
         }
+        
     },
     mounted () {
         axios

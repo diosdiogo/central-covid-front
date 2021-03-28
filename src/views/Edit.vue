@@ -18,7 +18,7 @@
 <script>
     import Toolbar from '@/components/Toolbar'
     import FormEdit from '@/components/FormEdit'
-    import axios from 'axios';
+    //import axios from 'axios';
 
 export default {
     components: {
@@ -38,16 +38,7 @@ export default {
     },
     created(){
         this.pacienteId = this.$route.params.id;
-        
-         axios
-            .get('http://localhost:3000/pacientes/'+ this.pacienteId, ).then(response => (
-                this.result = response.data.resultado[0],
-                this.idade = this.result.idade,
-                this.id= this.result.id,
-                this.nome = this.result.nome,
-                this.teste = this.result.teste
-            )
-            )
+        this.id = this.pacienteId
     }
 
 }

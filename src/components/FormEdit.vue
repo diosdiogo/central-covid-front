@@ -39,7 +39,6 @@
             >
             Salvar
         </v-btn>
-
     </v-form>
 </template>
 
@@ -48,7 +47,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export default {
-    props: ['id','nome','idade','teste'],
+    props: ['id'],
 
     data: () => ({
         valid: true,
@@ -69,32 +68,41 @@ export default {
         ],
     }),
     
+   created(){
+
+       axios
+        .get('http://localhost:3000/pacientes/'+ this.id, ).then(response => (
+            this.result = response.data.resultado[0],
+            this.idadePac = this.result.idade,
+            this.nameParc = this.result.nome,
+            this.testePac = this.result.teste
+        )
+        )
+    },
 
     methods: {
       validate () {
         this.$refs.form.validate()
-        if(this.name != '' && this.idade != ''){
-            const data = {'nome': this.nome, 'idade':  this.idade, 'teste':this.teste, 'id': this.id}
+        if(this.nameParc != '' && this.idadePac != ''){
+            const data = {'nome': this.nameParc, 'idade':  this.idadePac, 'teste':this.testePac, 'id': this.id}
           if(this.id != 0){
             axios
-              .patch('http://localhost:3000/pacientes/',data).then(response => (
-                    Swal.fire({
-                        type: "success",
-                        html: `Paciente Cadastrado`,
-                    })
-                )
-              )
+              .patch('http://localhost:3000/pacientes/',data).then(
 
-              
+                Swal.fire({
+                    type: "success",
+                    html: `Paciente Cadastrado`,
+                })
+              )
           }
            this.$router.go(-1);
         }
         
       }
 
-    },
-
+    }
 }
+
 </script>
 
 <style>
